@@ -1,0 +1,39 @@
+{
+  "name": "ime",
+  "version": "1.0.0",
+  "description": "ime toolkit",
+  "main": "index.js",
+  "bin": {
+    "i": "./bin/ime.js"
+  },
+  "scripts": {
+    "start": "tsc --watch --pretty",
+    "lint": "tslint -p ./",
+    "clean": "rm -rf bin lib const util",
+    "prebuild": "npm run lint && npm run clean",
+    "build": "tsc"
+  },
+  "keywords": [
+    "frontend",
+    "toolkit"
+  ],
+  "author": "luqimin",
+  "license": "ISC",
+  "dependencies": {
+    "chalk": "^2.4.1",
+    "commander": "^2.16.0",
+    "debug": "^3.1.0",
+    "download-git-repo": "^1.0.2",
+    "extend": "^3.0.2",
+    "postcss": "^7.0.2",
+    "rimraf": "^2.6.2",
+    "webpack": "^4.16.4"
+  },
+  "devDependencies": {
+    "@types/debug": "0.0.30",
+    "@types/extend": "^3.0.0",
+    "@types/webpack": "^4.4.9",
+    "tslint": "^5.11.0",
+    "typescript": "^3.0.1"
+  }
+}
