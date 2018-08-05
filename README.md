@@ -1,5 +1,11 @@
 # IME
 
+### install
+
+```shell
+npm i -g ime
+```
+
 ### 新建项目
 
 ```shell
@@ -28,4 +34,14 @@ i build
 
 # 编译dll文件
 i build dll
+```
+
+### 环境变量设置
+
+```shell
+# 可通过 --env 设置 process.env.NODE_ENV 的值：development/production
+i start --env development
+
+# 可使用缩写 -e (d)evelopment (p)roduction
+i build -e p
 ```

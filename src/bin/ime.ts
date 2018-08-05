@@ -8,7 +8,12 @@ import newProject from '../lib/new';
 import { devServer, buildClient, buildWebpackDll } from '../lib/client';
 import { nodeServer } from '../lib/server';
 
-program.version(localVersion);
+program
+    .version(localVersion)
+    .option(
+        '-e, --env [env]',
+        '设置 NODE_ENV 环境变量 production/development, 可简写首字母'
+    );
 
 program
     .command('new <project>')
@@ -25,6 +30,21 @@ program
     .description('开启本地服务')
     .action(
         (type: string): void => {
+            // 设置环境变量
+            switch (program.env) {
+                case 'd':
+                case 'development':
+                    process.env.NODE_ENV = 'development';
+                    break;
+                case 'p':
+                case 'production':
+                    process.env.NODE_ENV = 'production';
+                    break;
+                default:
+                    process.env.NODE_ENV = 'development';
+                    break;
+            }
+
             if (['client', 'c', 'fe', 'front'].includes(type)) {
                 // 开启 webpack dev server
                 devServer.run();
@@ -43,7 +63,22 @@ program
     .command('build [dll]')
     .description('打包前端文件')
     .action(
-        (dll): void => {
+        (dll: string): void => {
+            // 设置环境变量
+            switch (program.env) {
+                case 'd':
+                case 'development':
+                    process.env.NODE_ENV = 'development';
+                    break;
+                case 'p':
+                case 'production':
+                    process.env.NODE_ENV = 'production';
+                    break;
+                default:
+                    process.env.NODE_ENV = 'development';
+                    break;
+            }
+
             if (dll === 'dll') {
                 buildWebpackDll.run();
             } else {
