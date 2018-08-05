@@ -5,7 +5,7 @@ import * as autoprefixer from 'autoprefixer';
 import * as cssnano from 'cssnano';
 
 import { Env } from './env';
-import { browsers } from '../../config/const';
+import { browsers } from '@config/const';
 
 const postcssPlugins: any[] = [
     autoprefixer({

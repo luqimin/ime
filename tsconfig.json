@@ -1,22 +1,20 @@
 {
-  "compilerOptions": {
-    "target": "ESNEXT",
-    "module": "commonjs",
-    "lib": [
-      "es2016"
-    ],
-    "declaration": true,
-    "declarationDir": "./types",
-    "outDir": "./",
-    "rootDir": "./src",
-    "removeComments": false,
-    "strict": true
-  },
-  "include": [
-    "./index.d.ts",
-    "src/**/*.ts"
-  ],
-  "exclude": [
-    "node_modules"
-  ]
+    "compilerOptions": {
+        "target": "ESNEXT",
+        "module": "commonjs",
+        "lib": ["es2016"],
+        "declaration": true,
+        "declarationDir": "./types",
+        "outDir": "./",
+        "rootDir": "./src",
+        "baseUrl": "./",
+        "paths": {
+            "@config*": ["src/config*"],
+            "@util*": ["src/util*"],
+        },
+        "removeComments": false,
+        "strict": true
+    },
+    "include": ["./index.d.ts", "src/**/*.ts"],
+    "exclude": ["node_modules"]
 }

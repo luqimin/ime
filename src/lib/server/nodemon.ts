@@ -6,7 +6,7 @@ import * as nodemon from 'nodemon';
 import * as extend from 'extend';
 
 import { BaseClass } from '../../base';
-import log from '../../util/log';
+import log from '@util/log';
 
 class NodemonServer extends BaseClass<any> {
     protected taskRunning() {

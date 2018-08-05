@@ -2,11 +2,10 @@
  * 前端本地服务
  */
 import * as webpack from 'webpack';
-import * as path from 'path';
 import * as WebpackDevServer from 'webpack-dev-server';
 
 import Base from './Base';
-import log from '../../util/log';
+import log from '@util/log';
 
 class DevServer extends Base {
     protected taskRunning() {
