@@ -2,13 +2,14 @@
  * repl日志封装
  */
 import chalk from 'chalk';
+import { getRootConfig } from '../base';
 import getTime from './time';
 
-const prefix = (): string => {
+export const prefix = (): string => {
     return chalk.magenta(`[${getTime()}]`) + chalk.blue(`[ime] `);
 };
 
-const doLog = {
+const logger = {
     info(text: string): void {
         console.log(prefix() + chalk.cyan(text));
     },
@@ -21,6 +22,13 @@ const doLog = {
     error(text: string): void {
         console.log(prefix() + chalk.red(text));
     },
+    async debug(text: string): Promise<void> {
+        const { config = {} } = await getRootConfig();
+        config.debug &&
+            console.log(
+                prefix() + chalk.bgCyanBright.bold(`[调试]`) + ` ${text}`
+            );
+    },
 };
 
-export default doLog;
+export default logger;

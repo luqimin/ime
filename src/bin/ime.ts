@@ -3,8 +3,10 @@
 import * as program from 'commander';
 import chalk from 'chalk';
 
-import newProject from '../lib/new';
 import { localVersion } from '../util/version';
+import newProject from '../lib/new';
+import { devServer, buildClient, buildWebpackDll } from '../lib/client';
+import { nodeServer } from '../lib/server';
 
 program.version(localVersion);
 
@@ -18,26 +20,56 @@ program
         }
     );
 
+program
+    .command('start [type]')
+    .description('开启本地服务')
+    .action(
+        (type: string): void => {
+            if (['client', 'c', 'fe', 'front'].includes(type)) {
+                // 开启 webpack dev server
+                devServer.run();
+            } else if (['server', 's', 'be', 'back', 'node'].includes(type)) {
+                // 开启 nodemon server
+                nodeServer.run();
+            } else {
+                // 同时启动前后端server
+                devServer.run();
+                nodeServer.run();
+            }
+        }
+    );
+
+program
+    .command('build [dll]')
+    .description('打包前端文件')
+    .action(
+        (dll): void => {
+            if (dll === 'dll') {
+                buildWebpackDll.run();
+            } else {
+                buildClient.run();
+            }
+        }
+    );
+
 program.on('--help', () => {
     console.log('\n\n  > IME 命令说明:');
-    console.log('\n    $ i new <project>');
-    console.log(
-        chalk.gray('    # 在当前目录创建 <project> 文件夹并初始化项目')
-    );
 
     console.log('\n    $ i new <project>');
     console.log(
         chalk.gray('    # 在当前目录创建 <project> 文件夹并初始化项目')
     );
 
-    console.log('\n    $ i new <project>');
+    console.log('\n    $ i start [type]');
     console.log(
-        chalk.gray('    # 在当前目录创建 <project> 文件夹并初始化项目')
+        chalk.gray(
+            '    # 开启本地开发模式，type为client开启前端文件服务，为server开启node服务，不设置均开启'
+        )
     );
 
-    console.log('\n    $ i new <project>');
+    console.log('\n    $ i build [dll]');
     console.log(
-        chalk.gray('    # 在当前目录创建 <project> 文件夹并初始化项目')
+        chalk.gray('    # i build 打包前端静态文件, i build dll 打包dll文件')
     );
 
     console.log('\n');
