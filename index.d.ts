@@ -4,6 +4,7 @@ declare module '*.json' {
 
 declare module 'nodemon';
 declare module 'download-git-repo';
+declare module 'clui';
 
 declare module 'babel-preset-env';
 declare module 'babel-preset-react';
