@@ -4,12 +4,44 @@
 
 import * as path from 'path';
 import * as fs from 'fs-extra';
+
+import * as webpack from 'webpack';
+
 import { readFile } from '../../util/readFile';
 import log from '../../util/log';
 import { configNames } from '../../config/const';
 
+/**
+ * IME配置项
+ */
 export interface IMEConfig {
+    /**
+     * 是否开启调试模式
+     */
     debug?: boolean;
+
+    /**
+     * webpack配置
+     */
+    webpack?: webpack.Configuration;
+
+    /**
+     * webpack dll配置
+     */
+    dll?: webpack.Configuration;
+
+    /**
+     * nodemon配置
+     */
+    nodemon?: {
+        script?: string;
+        watch?: string[];
+        ignore?: string[];
+        verbose?: boolean;
+        env?: { [key: string]: string };
+        ext?: string;
+        stdout?: boolean;
+    };
 }
 
 export interface Root {

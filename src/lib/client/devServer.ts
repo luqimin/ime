@@ -12,11 +12,10 @@ class DevServer extends Base {
     protected taskRunning() {
         // webpack compiler
         const entry: webpack.Entry = this.webpackConfig.entry as webpack.Entry;
+
         // webpack-dev-server配置
         const devOptions: WebpackDevServer.Configuration = Object.assign(
             {
-                host: '0.0.0.0',
-                port: 8080,
                 stats: {
                     colors: true,
                 },

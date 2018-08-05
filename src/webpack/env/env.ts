@@ -7,14 +7,20 @@ export const initEnv = (_cwd: string): void => {
     cwd = _cwd;
 };
 
-// 当前node环境
-export const env: string = process.env.NODE_ENV || 'development';
-
-// 是否生产环境
-export const isProductuction = env === 'production';
-
-// 是否开发环境
-export const isDevelopment = env === 'development';
+export const Env = {
+    // 当前node环境
+    get env(): string {
+        return process.env.NODE_ENV || 'development';
+    },
+    // 是否生产环境
+    get isProductuction(): boolean {
+        return this.env === 'production';
+    },
+    // 是否开发环境
+    get isDevelopment(): boolean {
+        return this.env === 'development';
+    },
+};
 
 export interface EnvObject {
     common: object | any[];
@@ -90,8 +96,8 @@ export const smartEnv = (smartObject: (() => EnvObject) | EnvObject): any => {
     );
 
     if (Array.isArray(common)) {
-        return common.concat(configObject[env]);
+        return common.concat(configObject[Env.env]);
     } else {
-        return extend({}, common, configObject[env]);
+        return extend({}, common, configObject[Env.env]);
     }
 };

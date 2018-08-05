@@ -4,7 +4,7 @@
 import * as autoprefixer from 'autoprefixer';
 import * as cssnano from 'cssnano';
 
-import { isProductuction } from './env';
+import { Env } from './env';
 import { browsers } from '../../config/const';
 
 const postcssPlugins: any[] = [
@@ -13,7 +13,7 @@ const postcssPlugins: any[] = [
     }),
 ];
 
-if (isProductuction) {
+if (Env.isProductuction) {
     postcssPlugins.push(
         cssnano({
             preset: ['default', { cssDeclarationSorter: false }],

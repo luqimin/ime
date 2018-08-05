@@ -4,14 +4,15 @@
 import * as webpack from 'webpack';
 import vendors from './vendors';
 
-import { isProductuction, resolve, initEnv } from './env';
+import { Env, resolve, initEnv } from './env';
 
 // 配置需要加入vendor中的包
 export default (cwd: string): webpack.Configuration => {
     initEnv(cwd);
 
     return {
-        mode: isProductuction ? 'production' : 'development',
+        context: cwd,
+        mode: Env.isProductuction ? 'production' : 'development',
         devtool: false,
         entry: { vendor: vendors },
         output: {

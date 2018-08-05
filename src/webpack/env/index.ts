@@ -9,7 +9,7 @@ import Module from './module';
 import Plugins from './plugins';
 import DevServer from './devServer';
 
-import { isProductuction, resolve, smartEnv, initEnv } from './env';
+import { Env, resolve, smartEnv, initEnv } from './env';
 
 export const getConfig = (cwd: string): webpack.Configuration => {
     // 初始化webpack环境
@@ -19,7 +19,7 @@ export const getConfig = (cwd: string): webpack.Configuration => {
         // 设置webpack上下文为ime安装目录
         context: path.resolve(__dirname, '../../'),
 
-        mode: isProductuction ? 'production' : 'development',
+        mode: Env.isProductuction ? 'production' : 'development',
         entry: {
             app: resolve('src/index.jsx'),
         },
@@ -45,7 +45,7 @@ export const getConfig = (cwd: string): webpack.Configuration => {
         resolve: smartEnv(Resolve),
         module: smartEnv(Module),
         plugins: smartEnv(Plugins),
-        devtool: isProductuction ? false : 'cheap-module-eval-source-map',
+        devtool: Env.isProductuction ? false : 'cheap-module-eval-source-map',
         devServer: smartEnv(DevServer),
     };
 };

@@ -2,7 +2,7 @@
  * ime任务基类
  */
 
-import { getRootConfig, Root } from './dependencies/getRootConfig';
+import { getRootConfig, Root, IMEConfig } from './dependencies/getRootConfig';
 
 import log from '../util/log';
 
@@ -66,6 +66,7 @@ export interface IMEBase<P> {
 let debugNoticeFlag: boolean = false;
 
 export abstract class BaseClass<P> implements IMEBase<P> {
+    public config: IMEConfig = {};
     public runtime: Runtime = {};
     public result: any;
 

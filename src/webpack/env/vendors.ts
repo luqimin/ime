@@ -1,9 +1,1 @@
-export default [
-    'history',
-    'react',
-    'react-dom',
-    'axios',
-    'react-router-dom',
-    'mobx',
-    'mobx-react',
-];
+export default ['react', 'react-dom', 'react-router-dom'];
