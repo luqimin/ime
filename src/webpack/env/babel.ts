@@ -14,7 +14,7 @@ import * as decoratorsPlugin from 'babel-plugin-transform-decorators-legacy';
 import * as classPropertiesPlugin from 'babel-plugin-transform-class-properties';
 import * as regeneratorPlugin from 'babel-plugin-transform-regenerator';
 
-import { browsers } from '@config/const';
+import { browsers } from '../../config/const';
 
 const babelRuntimePath = path.resolve(
     __dirname,

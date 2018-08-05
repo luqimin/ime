@@ -7,9 +7,9 @@ import * as fs from 'fs-extra';
 
 import * as webpack from 'webpack';
 
-import { readFile } from '@util/readFile';
-import log from '@util/log';
-import { configNames } from '@config/const';
+import { readFile } from '../../util/readFile';
+import log from '../../util/log';
+import { configNames } from '../../config/const';
 
 /**
  * IME配置项

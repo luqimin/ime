@@ -3,11 +3,11 @@ import * as path from 'path';
 import * as download from 'download-git-repo';
 import chalk from 'chalk';
 
-import install from '@util/install';
-import { demoUrl } from '@config/git';
-import log from '@util/log';
-import spin from '@util/spin';
-import { readFile } from '@util/readFile';
+import install from '../../util/install';
+import { demoUrl } from '../../config/git';
+import log from '../../util/log';
+import spin from '../../util/spin';
+import { readFile } from '../../util/readFile';
 
 const newProject = (project: string): void => {
     if (!project) {

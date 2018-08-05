@@ -4,7 +4,7 @@
 import * as webpack from 'webpack';
 
 import Base from './Base';
-import spin from '@util/spin';
+import spin from '../../util/spin';
 
 class BuildDll extends Base {
     protected taskRunning() {
