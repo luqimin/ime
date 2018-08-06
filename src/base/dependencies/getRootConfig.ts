@@ -31,6 +31,11 @@ export interface IMEConfig {
     dll?: webpack.Configuration;
 
     /**
+     * less modifyVars配置
+     */
+    lessModifyVars?: { [key: string]: string };
+
+    /**
      * nodemon配置
      */
     nodemon?: {

@@ -5,8 +5,14 @@ import chalk from 'chalk';
 
 import { localVersion } from '../util/version';
 import newProject from '../lib/new';
-import { devServer, buildClient, buildWebpackDll } from '../lib/client';
+import {
+    devServer,
+    buildClient,
+    buildWebpackDll,
+    watchClient,
+} from '../lib/client';
 import { nodeServer } from '../lib/server';
+import { distBridge } from '../lib/bridge';
 
 program
     .version(localVersion)
@@ -51,6 +57,9 @@ program
             } else if (['server', 's', 'be', 'back', 'node'].includes(type)) {
                 // 开启 nodemon server
                 nodeServer.run();
+                // 开启静态文件watch和dist拷贝服务
+                watchClient.run();
+                distBridge.run();
             } else {
                 // 同时启动前后端server
                 devServer.run();
@@ -88,7 +97,7 @@ program
     );
 
 program.on('--help', () => {
-    console.log('\n\n  > IME 命令说明:');
+    console.log('\n  IME 命令说明:');
 
     console.log('\n    $ i new <project>');
     console.log(

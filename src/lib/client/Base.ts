@@ -14,7 +14,7 @@ export default class ClientBase extends BaseClass<any> {
         // 合并默认配置和项目配置
         this.webpackConfig = extend(
             true,
-            getWebpackConfig(this.runtime.clientPath),
+            getWebpackConfig(this.runtime.clientPath, this.runtime.config),
             this.runtime.config && this.runtime.config.webpack
         );
         this.dllConfig = extend(

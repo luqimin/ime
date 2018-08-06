@@ -1,12 +1,13 @@
 import * as webpack from 'webpack';
 import * as MiniCssExtractPlugin from 'mini-css-extract-plugin';
 
-import { resolve } from './env';
+import { IMEConfig } from '../../base';
+import { Env, resolve } from './env';
 import lessTheme from './lessTheme';
 import postcssPlugins from './postcss';
 import babelConfig from './babel';
 
-export default () => {
+export default (config: IMEConfig) => {
     const common = {
         rules: [
             {
@@ -18,8 +19,9 @@ export default () => {
                         loader: 'css-loader',
                         options: {
                             modules: true,
-                            localIdentName:
-                                '[path][name]__[local]___[hash:base64:3]',
+                            localIdentName: Env.isProductuction
+                                ? '[hash:base64:4]'
+                                : '[path][name]__[local]___[hash:base64:3]',
                         },
                     },
                     {
@@ -52,7 +54,10 @@ export default () => {
                         loader: 'less-loader',
                         options: {
                             javascriptEnabled: true,
-                            modifyVars: lessTheme,
+                            modifyVars: Object.assign(
+                                lessTheme,
+                                config.lessModifyVars
+                            ),
                         },
                     },
                 ],

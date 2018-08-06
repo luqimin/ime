@@ -10,8 +10,12 @@ import Plugins from './plugins';
 import DevServer from './devServer';
 
 import { Env, resolve, smartEnv, initEnv } from './env';
+import { IMEConfig } from '../../base';
 
-export const getConfig = (cwd: string): webpack.Configuration => {
+export const getConfig = (
+    cwd: string,
+    config?: IMEConfig
+): webpack.Configuration => {
     // 初始化webpack环境
     initEnv(cwd);
 
@@ -43,7 +47,7 @@ export const getConfig = (cwd: string): webpack.Configuration => {
             },
         },
         resolve: smartEnv(Resolve),
-        module: smartEnv(Module),
+        module: smartEnv(Module, config),
         plugins: smartEnv(Plugins),
         devtool: Env.isProductuction ? false : 'cheap-module-eval-source-map',
         devServer: smartEnv(DevServer),

@@ -69,7 +69,10 @@ export const resolve = (modulePath: string): string => {
  * 获取webpack单项配置
  * @param smartObject - webpack配置项
  */
-export const smartEnv = (smartObject: (() => EnvObject) | EnvObject): any => {
+export const smartEnv = (
+    smartObject: ((config?: any) => EnvObject) | EnvObject,
+    config?: any
+): any => {
     assert(
         isObject(smartObject) || isFunction(smartObject),
         '配置内容必须是Object'
@@ -79,7 +82,7 @@ export const smartEnv = (smartObject: (() => EnvObject) | EnvObject): any => {
 
     // 对smartObject是对象还是函数做一个兼容
     if (typeof smartObject === 'function') {
-        configObject = smartObject();
+        configObject = smartObject(config);
     } else {
         configObject = smartObject;
     }

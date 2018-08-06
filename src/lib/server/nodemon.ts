@@ -39,7 +39,7 @@ class NodemonServer extends BaseClass<any> {
 
         nodemon
             .on('start', () => {
-                log.success('Node server 已启动');
+                log.success(`Node服务已开启`);
             })
             .on('quit', () => {
                 log.info('Node server 已退出');

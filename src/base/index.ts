@@ -1,3 +1,3 @@
-export { getRootConfig, Root } from './dependencies/getRootConfig';
+export { getRootConfig, Root, IMEConfig } from './dependencies/getRootConfig';
 
 export { BaseClass } from './BaseClass';
