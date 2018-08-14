@@ -8,7 +8,7 @@ const common = [
     new webpack.ContextReplacementPlugin(/moment[/\\]locale$/, /^\.\/zh-cn$/),
     new MiniCssExtractPlugin({
         filename: '[name].css',
-        chunkFilename: '[id].css',
+        chunkFilename: '[name].[chunkhash:3].css',
     }),
 ];
 

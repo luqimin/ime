@@ -13,12 +13,16 @@ const postcssPlugins: any[] = [
     }),
 ];
 
-if (Env.isProductuction) {
-    postcssPlugins.push(
-        cssnano({
-            preset: ['default', { cssDeclarationSorter: false }],
-        })
-    );
-}
+const getPlugins = () => {
+    if (Env.isProductuction) {
+        // 生产环境添加css压缩功能
+        postcssPlugins.push(
+            cssnano({
+                preset: ['default', { cssDeclarationSorter: false }],
+            })
+        );
+    }
+    return postcssPlugins;
+};
 
-export default postcssPlugins;
+export default getPlugins;

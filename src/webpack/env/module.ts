@@ -21,14 +21,14 @@ export default (config: IMEConfig) => {
                             modules: true,
                             localIdentName: Env.isProductuction
                                 ? '[hash:base64:4]'
-                                : '[path][name]__[local]___[hash:base64:3]',
+                                : '[path][name]_[local]',
                         },
                     },
                     {
                         loader: 'postcss-loader',
                         options: {
                             ident: 'postcss',
-                            plugins: postcssPlugins,
+                            plugins: postcssPlugins(),
                         },
                     },
                     {
@@ -47,7 +47,7 @@ export default (config: IMEConfig) => {
                         loader: 'postcss-loader',
                         options: {
                             ident: 'postcss',
-                            plugins: postcssPlugins,
+                            plugins: postcssPlugins(),
                         },
                     },
                     {
