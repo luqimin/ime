@@ -2,15 +2,6 @@ import * as UglifyJsPlugin from 'uglifyjs-webpack-plugin';
 
 export default {
     common: {
-        minimizer: [
-            new UglifyJsPlugin({
-                uglifyOptions: {
-                    output: {
-                        comments: false,
-                    },
-                },
-            }),
-        ],
         splitChunks: {
             cacheGroups: {
                 css: {
@@ -22,6 +13,16 @@ export default {
             },
         },
     },
-    production: {},
+    production: {
+        minimizer: [
+            new UglifyJsPlugin({
+                uglifyOptions: {
+                    output: {
+                        comments: /^!.+ime.+/,
+                    },
+                },
+            }),
+        ],
+    },
     development: {},
 };

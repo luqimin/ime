@@ -4,6 +4,7 @@
 import * as path from 'path';
 import * as webpack from 'webpack';
 
+import Output from './output';
 import Resolve from './resolve';
 import Module from './module';
 import Plugins from './plugins';
@@ -28,17 +29,11 @@ export const getConfig = (
         entry: {
             app: resolve('src/index.jsx'),
         },
-        output: {
-            path: resolve('dist'),
-            filename: '[name].js',
-            publicPath: '/dist/',
-            chunkFilename: '[name].bundle.js',
-            crossOriginLoading: 'anonymous',
-        },
+        output: smartEnv(Output, config),
         optimization: smartEnv(Optimization),
         resolve: smartEnv(Resolve),
         module: smartEnv(Module, config),
-        plugins: smartEnv(Plugins),
+        plugins: smartEnv(Plugins, config),
         devtool: Env.isProductuction ? false : 'cheap-module-eval-source-map',
         devServer: smartEnv(DevServer),
     };

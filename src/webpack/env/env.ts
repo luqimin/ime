@@ -68,6 +68,7 @@ export const resolve = (modulePath: string): string => {
 /**
  * 获取webpack单项配置
  * @param smartObject - webpack配置项
+ * @param config - ime配置项
  */
 export const smartEnv = (
     smartObject: ((config?: any) => EnvObject) | EnvObject,

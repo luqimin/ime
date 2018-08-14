@@ -21,6 +21,11 @@ export interface IMEConfig {
     debug?: boolean;
 
     /**
+     * 版本号，生产环境编译时，静态文件名将会携带版本号
+     */
+    version?: string;
+
+    /**
      * webpack配置
      */
     webpack?: webpack.Configuration;
