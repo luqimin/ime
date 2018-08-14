@@ -6,7 +6,6 @@ import * as path from 'path';
 import * as url from 'url';
 import * as express from 'express';
 import * as pathToRegexp from 'path-to-regexp';
-import { readFile } from '../../util/readFile';
 import Base from './Base';
 
 export const mockStatic = (
@@ -56,7 +55,11 @@ export const mockStatic = (
         _path.endsWith('.json') ? _path : `${_path}.json`
     );
     if (fs.existsSync(mockFilePath)) {
-        res.json(readFile(mockFilePath));
+        try {
+            res.json(JSON.parse(fs.readFileSync(mockFilePath, 'utf8')));
+        } catch (error) {
+            res.json({ code: -1, err: error.message });
+        }
     } else {
         next && next();
     }
