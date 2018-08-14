@@ -10,6 +10,10 @@ const common = [
         filename: '[name].css',
         chunkFilename: '[name].[chunkhash:3].css',
     }),
+    new webpack.BannerPlugin({
+        banner: `updated: ${new Date().toLocaleString()}`,
+        entryOnly: true,
+    }),
 ];
 
 export default () => {
