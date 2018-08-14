@@ -1,13 +1,14 @@
 /**
  * 前端本地服务
  */
-import * as webpack from 'webpack';
-import * as path from 'path';
 import * as fs from 'fs';
+import * as path from 'path';
+import * as webpack from 'webpack';
 import * as WebpackDevServer from 'webpack-dev-server';
 import * as express from 'express';
 
 import Base from './Base';
+import { mockStatic } from './mock';
 import log from '../../util/log';
 import { readFile } from '../../util/readFile';
 
@@ -29,7 +30,7 @@ class DevServer extends Base {
                 /**
                  * 添加mock数据接口功能
                  */
-                before(app: express.Application): void {
+                after(app: express.Application): void {
                     app.get(
                         '/:path*',
                         (
@@ -37,43 +38,16 @@ class DevServer extends Base {
                             res: express.Response,
                             next: express.NextFunction
                         ) => {
-                            const _path: string = req.params['path'];
-                            const _tail: string = req.params['0'];
-                            // 不mock静态文件
-                            if (_path === 'dist') {
-                                next();
-                                return;
-                            }
-                            // mock目录client/mock里面所有json文件，支持多级目录
-                            const mockFilePath: string = _tail
-                                ? path.join(
-                                      that.runtime.clientPath || '',
-                                      'mock',
-                                      _path,
-                                      _tail.endsWith('.json')
-                                          ? _tail
-                                          : `${_tail}.json`
-                                  )
-                                : path.join(
-                                      that.runtime.clientPath || '',
-                                      'mock',
-                                      _path.endsWith('.json')
-                                          ? _path
-                                          : `${_path}.json`
-                                  );
-                            if (fs.existsSync(mockFilePath)) {
-                                res.json(readFile(mockFilePath));
-                            } else {
-                                next();
-                            }
+                            mockStatic(that, req, res, next);
                         }
                     );
                 },
             },
             this.webpackConfig.devServer
         );
-        const devServerHost = `http://${devOptions.host}:${devOptions.port}`;
 
+        // 覆盖修改webpack的entry配置，增加文件修改页面热更新的功能
+        const devServerHost = `http://${devOptions.host}:${devOptions.port}`;
         const formatedEntry: webpack.Entry = {};
         for (const ent in entry) {
             if (entry.hasOwnProperty(ent)) {
@@ -98,6 +72,20 @@ class DevServer extends Base {
         };
 
         const compiler: webpack.Compiler = webpack(_config);
+
+        // 给devOptions的proxy(反向代理)添加默认onError配置，默认情况下，如果代理出错，dev将返回本地mock数据
+        const proxyOptions: WebpackDevServer.Configuration['proxy'] =
+            devOptions.proxy;
+
+        // 目前仅兼容proxy是数组的配置
+        if (Array.isArray(proxyOptions)) {
+            for (const p of proxyOptions) {
+                p.onError =
+                    p.onError ||
+                    ((err, req: express.Request, res: express.Response) =>
+                        mockStatic(that, req, res));
+            }
+        }
 
         const server = new WebpackDevServer(compiler, devOptions);
         server.listen(
