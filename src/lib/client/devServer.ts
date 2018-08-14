@@ -1,8 +1,6 @@
 /**
  * 前端本地服务
  */
-import * as fs from 'fs';
-import * as path from 'path';
 import * as webpack from 'webpack';
 import * as WebpackDevServer from 'webpack-dev-server';
 import * as express from 'express';
@@ -10,7 +8,6 @@ import * as express from 'express';
 import Base from './Base';
 import { mockStatic } from './mock';
 import log from '../../util/log';
-import { readFile } from '../../util/readFile';
 
 class DevServer extends Base {
     protected taskRunning() {

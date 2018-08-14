@@ -7,6 +7,7 @@ import * as webpack from 'webpack';
 import Resolve from './resolve';
 import Module from './module';
 import Plugins from './plugins';
+import Optimization from './optimization';
 import DevServer from './devServer';
 
 import { Env, resolve, smartEnv, initEnv } from './env';
@@ -34,18 +35,7 @@ export const getConfig = (
             chunkFilename: '[name].bundle.js',
             crossOriginLoading: 'anonymous',
         },
-        optimization: {
-            splitChunks: {
-                cacheGroups: {
-                    css: {
-                        test: /\.(css|less|sass|scss)$/,
-                        name: 'commons',
-                        chunks: 'all',
-                        minChunks: 4,
-                    },
-                },
-            },
-        },
+        optimization: smartEnv(Optimization),
         resolve: smartEnv(Resolve),
         module: smartEnv(Module, config),
         plugins: smartEnv(Plugins),
