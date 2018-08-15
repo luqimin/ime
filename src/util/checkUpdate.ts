@@ -23,6 +23,7 @@ export default async () => {
             console.log(chalk.greenBright(`      最新版本: ${_r}`));
             console.log(chalk.yellow(`      当前版本: ${_l}`));
             console.log(chalk.red('                                         '));
+            console.log(chalk.gray('      更新方法: npm i -g ime'));
             console.log(chalk.gray('      查看更新日志: http://dwz.cn/dsIlejoP'));
             console.log('');
             console.log(chalk.red('    ****************************************'));
