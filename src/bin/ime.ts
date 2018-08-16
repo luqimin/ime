@@ -4,6 +4,8 @@ import * as program from 'commander';
 import chalk from 'chalk';
 
 import { localVersion } from '../util/version';
+import checkUpdate from '../util/checkUpdate';
+
 import newProject from '../lib/new';
 import {
     devServer,
@@ -13,7 +15,9 @@ import {
 } from '../lib/client';
 import { nodeServer } from '../lib/server';
 import { distBridge } from '../lib/bridge';
-import checkUpdate from '../util/checkUpdate';
+
+// 异步检查版本更新
+checkUpdate();
 
 program
     .version(localVersion)
@@ -52,9 +56,6 @@ program
                     break;
             }
 
-            // 检查版本更新
-            checkUpdate();
-
             if (['client', 'c', 'fe', 'front'].includes(type)) {
                 // 开启 webpack dev server
                 devServer.run();
@@ -91,9 +92,6 @@ program
                     process.env.NODE_ENV = 'development';
                     break;
             }
-
-            // 检查版本更新
-            checkUpdate();
 
             if (dll === 'dll') {
                 buildWebpackDll.run();

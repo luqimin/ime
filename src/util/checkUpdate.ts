@@ -1,35 +1,53 @@
 /**
  * 查询升级信息
  */
-import { localVersion, getRemoteVersion } from './version';
-import log from './log';
+import * as updateNotifier from 'update-notifier';
 import chalk from 'chalk';
+import * as pkg from '../package.json';
 
-export default async () => {
-    try {
-        // 最新版本号
-        const remoteVersion: string | null = await getRemoteVersion();
+export default () => {
+    const notifier = updateNotifier({
+        pkg,
+        // 检查更新间隔时间(秒)
+        updateCheckInterval: 60 * 60 * 1000,
+    });
 
-        // 是否有更新版本
-        const _l: string = localVersion.trim(),
-            _r: string = remoteVersion ? remoteVersion.trim() : '0.0.0';
-        const hasNewVersion: boolean = _r > _l;
+    console.log(notifier.update);
 
-        if (hasNewVersion) {
-            console.log('\n');
-            console.log(chalk.red('    ****************************************'));
-            console.log(chalk.greenBright('                    更新提醒'));
-            console.log('');
-            console.log(chalk.greenBright(`      最新版本: ${_r}`));
-            console.log(chalk.yellow(`      当前版本: ${_l}`));
-            console.log(chalk.red('                                         '));
-            console.log(chalk.gray('      更新方法: npm i -g ime'));
-            console.log(chalk.gray('      查看更新日志: http://dwz.cn/dsIlejoP'));
-            console.log('');
-            console.log(chalk.red('    ****************************************'));
-            console.log('\n');
+    // 如果有新版本
+    if (notifier.update && notifier.update.latest !== pkg.version) {
+        const updateInfo: updateNotifier.UpdateInfo = notifier.update;
+
+        // 更新类型
+        let type: string = updateInfo.type;
+        switch (type) {
+            case 'major':
+                type = chalk.red(type);
+                break;
+            case 'minor':
+                type = chalk.yellow(type);
+                break;
+            case 'patch':
+                type = chalk.green(type);
+                break;
         }
-    } catch (error) {
-        log.debug(error.message);
+        // 更新日志
+        const changelog = `${chalk.yellow('更新日志:')} ${chalk.cyan(
+            'http://dwz.cn/dsIlejoP'
+        )}`;
+        // 老版本号
+        const old = updateInfo.current;
+        // 新版本号
+        const latest = updateInfo.latest;
+
+        notifier.notify({
+            message:
+                `${pkg.name} 有新 ${type} 版本! ` +
+                `${chalk.gray(old)} → ${chalk.greenBright(latest)}\n` +
+                `${changelog}\n` +
+                `运行 ${chalk.green(`npm i -g ${pkg.name}`)} 进行更新!`,
+            defer: true,
+            isGlobal: true,
+        });
     }
 };
