@@ -12,8 +12,6 @@ export default () => {
         updateCheckInterval: 60 * 60 * 1000,
     });
 
-    console.log(notifier.update);
-
     // 如果有新版本
     if (notifier.update && notifier.update.latest !== pkg.version) {
         const updateInfo: updateNotifier.UpdateInfo = notifier.update;
