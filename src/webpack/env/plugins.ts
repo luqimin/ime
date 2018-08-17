@@ -2,7 +2,7 @@ import * as fs from 'fs';
 import * as webpack from 'webpack';
 import * as MiniCssExtractPlugin from 'mini-css-extract-plugin';
 
-import { Env, resolve } from './env';
+import { resolve } from './env';
 import { getVersion } from './version';
 import { IMEConfig } from '../../base';
 

@@ -44,10 +44,18 @@ export default {
         ],
         [
             importPlugin.default,
-            {
-                libraryName: 'antd',
-                style: true,
-            },
+            [
+                {
+                    libraryName: 'antd',
+                    style: true,
+                },
+                {
+                    libraryName: 'ant-design-pro',
+                    libraryDirectory: 'lib',
+                    style: true,
+                    camel2DashComponentName: false,
+                },
+            ],
         ],
         decoratorsPlugin.default,
         classPropertiesPlugin,
