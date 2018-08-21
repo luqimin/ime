@@ -7,6 +7,7 @@ import { localVersion } from '../util/version';
 import checkUpdate from '../util/checkUpdate';
 
 import newProject from '../lib/new';
+import newModule from '../lib/module';
 import {
     devServer,
     buildClient,
@@ -33,6 +34,36 @@ program
         (project: string): void => {
             // 设置项目名
             newProject(project);
+        }
+    );
+
+program
+    .command('module <module>')
+    .description('创建一个新的 module (controller + service)')
+    .action(
+        (module: string): void => {
+            // 设置module名
+            newModule({ module }).run();
+        }
+    );
+
+program
+    .command('controller <controller>')
+    .description('创建一个新的 controller')
+    .action(
+        (controller: string): void => {
+            // 设置controller名
+            newModule({ controller }).run();
+        }
+    );
+
+program
+    .command('service <service>')
+    .description('创建一个新的 service')
+    .action(
+        (service: string): void => {
+            // 设置service名
+            newModule({ service }).run();
         }
     );
 
@@ -108,6 +139,11 @@ program.on('--help', () => {
     console.log(
         chalk.gray('    # 在当前目录创建 <project> 文件夹并初始化项目')
     );
+
+    console.log(
+        '\n    $ i module <name> 或 i controller <name> 或 i service <name>'
+    );
+    console.log(chalk.gray('    # 快捷创建 server 内 controller、service 脚手架'));
 
     console.log('\n    $ i start [type]');
     console.log(

@@ -116,7 +116,7 @@ export abstract class BaseClass<P> implements IMEBase<P> {
     /**
      * async init()执行后的钩子，可以在这里对ime配置做进一步处理
      */
-    protected configInited?(): boolean | void;
+    protected configInited?(): boolean | void | Promise<boolean | void>;
 
     /**
      * 开始运行task之前，async()执行如果返回false，则任务中断

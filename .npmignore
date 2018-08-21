@@ -10,5 +10,6 @@ node_modules
 
 src
 test
+default_template
 tsconfig.json
 tslint.json

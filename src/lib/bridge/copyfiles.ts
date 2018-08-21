@@ -29,6 +29,7 @@ class WatchDist extends BaseClass<any> {
             fs.copy(filePath, publicDistPath, (err) => {
                 if (err) {
                     log.error(err.message);
+                    err.stack && log.debug(err.stack);
                 } else {
                     log.debug(`生成文件: ${publicDistPath}`);
                 }
