@@ -6,7 +6,7 @@ import { getRootConfig } from '../base';
 import getTime from './time';
 
 export const prefix = (): string => {
-    return chalk.magenta(`[${getTime()}]`) + chalk.blue(`[ime] `);
+    return chalk.magenta(`[${getTime()}]`) + chalk.blue('[ime] ');
 };
 
 const logger = {
@@ -26,7 +26,7 @@ const logger = {
         const { config = {} } = await getRootConfig();
         config.debug &&
             console.log(
-                prefix() + chalk.bgCyanBright.bold(`[调试]`) + ` ${text}`
+                prefix() + chalk.bgCyanBright.bold('[调试]') + ` ${text}`
             );
     },
 };

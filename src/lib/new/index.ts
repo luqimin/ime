@@ -95,17 +95,17 @@ const newProject = async (
         }
 
         log.success(`项目 ${project} 初始化成功, 你现在可以:`);
-        console.log(`\n    $ ` + chalk.cyan(`cd ${project}`));
+        console.log('\n    $ ' + chalk.cyan(`cd ${project}`));
         console.log(chalk.gray(`    # 进入${project}目录`));
         console.log('\n    $ ' + chalk.cyan('i build dll'));
-        console.log(chalk.gray(`    # 编译 js dll 文件`));
+        console.log(chalk.gray('    # 编译 js dll 文件'));
         console.log('\n    $ ' + chalk.cyan('i start'));
-        console.log(chalk.gray(`    # 开启本地开发模式`));
+        console.log(chalk.gray('    # 开启本地开发模式'));
         console.log('\n    $ ' + chalk.cyan('i build'));
-        console.log(chalk.gray(`    # 编译本地静态文件`));
+        console.log(chalk.gray('    # 编译本地静态文件'));
         console.log('\n');
     } catch (error) {
-        `项目 ${project} 创建失败, 联系管理员吧: ${error.message.trim()}`;
+        log.error(`项目 ${project} 创建失败, 联系管理员吧: ${error.message.trim()}`);
         throw error;
     }
 };

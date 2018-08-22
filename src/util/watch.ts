@@ -24,7 +24,7 @@ const Watch = (
     }
     const wp = new Watchpack(Object.assign({ poll: true }, options || {}));
     wp.watch(watchFiles.files || [], watchFiles.directories || [], Date.now() - 10000);
-    wp.on("change", (filePath: string, mtime: number) => {
+    wp.on('change', (filePath: string, mtime: number) => {
         cb && cb(filePath, mtime);
     });
 };

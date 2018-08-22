@@ -44,30 +44,18 @@ class ModuleFather extends ModuleBase {
             return;
         }
 
-        const controllerDir: string = path.resolve(
-            serverPath,
-            'app/controller'
-        );
+        const controllerDir: string = path.resolve(serverPath, 'app/controller');
         // 目标controller路径
-        const controllerFilepath: string = path.resolve(
-            controllerDir,
-            `${name}.js`
-        );
+        const controllerFilepath: string = path.resolve(controllerDir, `${name}.js`);
 
         if (fs.existsSync(controllerFilepath)) {
-            log.error(
-                `${controllerDir} 内已存在文件${name}.js, 请更换controller名`
-            );
+            log.error(`${controllerDir} 内已存在文件${name}.js, 请更换controller名`);
             return;
         }
 
         // 获取controller文件内容
         let controller: string = await fs.readFile(this.controllerPath, 'utf8');
-        controller = _.replace(
-            controller,
-            /example/g,
-            name.toLocaleLowerCase()
-        );
+        controller = _.replace(controller, /example/g, name.toLocaleLowerCase());
         controller = _.replace(controller, /Example/g, _.capitalize(name));
 
         // 写入文件
@@ -75,9 +63,7 @@ class ModuleFather extends ModuleBase {
         log.success(
             `controller 创建成功: ${name} \n` +
                 `                ${chalk.yellow('controller 调用举例:')}` +
-                ` ${chalk.grey(
-                    `router.post('/any/path', controller.${name}.demo);`
-                )}`
+                ` ${chalk.grey(`router.post('/any/path', controller.${name}.demo);`)}`
         );
     }
 
@@ -112,9 +98,7 @@ class ModuleFather extends ModuleBase {
         log.success(
             `service 创建成功: ${name} \n` +
                 `                ${chalk.yellow('service 调用举例:')}` +
-                ` ${chalk.grey(
-                    `const data = await ctx.service.${name}.demo();`
-                )}`
+                ` ${chalk.grey(`const data = await ctx.service.${name}.demo();`)}`
         );
     }
 }
