@@ -61,8 +61,8 @@ const isArrayOrObject = (o: any): boolean => {
  * 获取resove后的路径
  * @param modulePath - 配置路径
  */
-export const resolve = (modulePath: string): string => {
-    return path.join(cwd, modulePath);
+export const resolve = (...paths: string[]): string => {
+    return path.join(cwd, ...paths);
 };
 
 /**
@@ -70,14 +70,8 @@ export const resolve = (modulePath: string): string => {
  * @param smartObject - webpack配置项
  * @param config - ime配置项
  */
-export const smartEnv = (
-    smartObject: ((config?: any) => EnvObject) | EnvObject,
-    config?: any
-): any => {
-    assert(
-        isObject(smartObject) || isFunction(smartObject),
-        '配置内容必须是Object'
-    );
+export const smartEnv = (smartObject: ((config?: any) => EnvObject) | EnvObject, config?: any): any => {
+    assert(isObject(smartObject) || isFunction(smartObject), '配置内容必须是Object');
 
     let configObject: any;
 
@@ -93,9 +87,7 @@ export const smartEnv = (
     const development = configObject.development;
 
     assert(
-        isArrayOrObject(common) &&
-            isArrayOrObject(production) &&
-            isArrayOrObject(development),
+        isArrayOrObject(common) && isArrayOrObject(production) && isArrayOrObject(development),
         '配置项比如是数组或对象'
     );
 

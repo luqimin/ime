@@ -15,7 +15,13 @@ import { Env, resolve, smartEnv, initEnv } from './env';
 import { IMEConfig } from '../../base';
 
 export const getConfig = (
+    /**
+     * 静态文件项目目录(client)
+     */
     cwd: string,
+    /**
+     * ime配置
+     */
     config?: IMEConfig
 ): webpack.Configuration => {
     // 初始化webpack环境
