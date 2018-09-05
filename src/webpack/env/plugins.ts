@@ -2,27 +2,26 @@ import * as fs from 'fs';
 import * as webpack from 'webpack';
 import * as MiniCssExtractPlugin from 'mini-css-extract-plugin';
 
-import { resolve } from './env';
+import { resolve, Env } from './env';
 import { getVersion } from './version';
 import { IMEConfig } from '../../base';
 
 export default (config: IMEConfig) => {
     const common = [
-        new webpack.ContextReplacementPlugin(
-            /moment[/\\]locale$/,
-            /^\.\/zh-cn$/
-        ),
+        new webpack.ContextReplacementPlugin(/moment[/\\]locale$/, /^\.\/zh-cn$/),
         new webpack.BannerPlugin({
             banner: `updated by ime in ${new Date().toLocaleString()}`,
             entryOnly: true,
         }),
     ];
 
-    if (fs.existsSync(resolve('env/manifest.json'))) {
+    const manifestPath: string = Env.isProductuction ? 'env/manifest.json' : 'env/manifest.dev.json';
+
+    if (fs.existsSync(resolve(manifestPath))) {
         common.push(
             new webpack.DllReferencePlugin({
                 context: resolve(''),
-                manifest: require(resolve('env/manifest.json')),
+                manifest: require(resolve(manifestPath)),
             })
         );
     }
