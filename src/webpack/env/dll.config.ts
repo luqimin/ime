@@ -19,13 +19,13 @@ export default (cwd: string): webpack.Configuration => {
         entry: { vendor: vendors },
         output: {
             path: resolve('dist'),
-            filename: '[name].js',
+            filename: Env.isProductuction ? '[name].js' : '[name].dev.js',
             library: '[name]',
         },
         optimization: smartEnv(Optimization),
         plugins: [
             new webpack.DllPlugin({
-                path: resolve('env/manifest.json'),
+                path: resolve(Env.isProductuction ? 'env/manifest.json' : 'env/manifest.dev.json'),
                 name: '[name]',
                 context: resolve(''),
             }),
